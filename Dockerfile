@@ -6,6 +6,7 @@ ENV GRADLE_VERSION=5.6.4
 ENV GRADLE_HOME /gradle-${GRADLE_VERSION}
 RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip \
     && unzip -q gradle-${GRADLE_VERSION}-all.zip \
+    && chmod a+x ${GRADLE_HOME}/bin/gradle \
     && rm gradle-${GRADLE_VERSION}-all.zip
 ENV PATH ${GRADLE_HOME}/bin:$PATH
 
