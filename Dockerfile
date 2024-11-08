@@ -3,11 +3,14 @@ FROM mingc/android-build-box:1.28.0
 ENV JAVA_HOME "/usr/lib/jvm/java-17-openjdk-amd64/"
 
 ENV GRADLE_VERSION 5.6.4
-ENV GRADLE_HOME /gradle-${GRADLE_VERSION}
+ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
 RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip \
-    && unzip -q gradle-${GRADLE_VERSION}-all.zip \
+    && unzip -d /opt -q gradle-${GRADLE_VERSION}-all.zip \
+    && pwd \
     && ls -al \
-    && ls -al / \
+    && ls -al /opt \
+    && ls -al {GRADLE_HOME}/ \
+    && ls -al {GRADLE_HOME}/bin \
     && chmod a+x ${GRADLE_HOME}/bin/gradle \
     && rm gradle-${GRADLE_VERSION}-all.zip
 ENV PATH ${GRADLE_HOME}/bin:$PATH
