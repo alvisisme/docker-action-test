@@ -19,6 +19,6 @@ RUN npm i -g cordova@12.0.0 \
     && cordova telemetry off \
     && cordova create myApp org.apache.cordova.myApp myApp \
     && cd myApp \
-    && cordova platform add android --save \
+    && cordova platform add git+https://github.com/apache/cordova-android.git@13.0.0 --save --verbose \
     && cordova plugin add cordova-plugin-camera --save \
     && cordova build android
