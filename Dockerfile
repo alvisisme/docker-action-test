@@ -9,8 +9,8 @@ RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-a
     && pwd \
     && ls -al \
     && ls -al /opt \
-    && ls -al {GRADLE_HOME}/ \
-    && ls -al {GRADLE_HOME}/bin \
+    && ls -al ${GRADLE_HOME}/ \
+    && ls -al ${GRADLE_HOME}/bin \
     && chmod a+x ${GRADLE_HOME}/bin/gradle \
     && rm gradle-${GRADLE_VERSION}-all.zip
 ENV PATH ${GRADLE_HOME}/bin:$PATH
