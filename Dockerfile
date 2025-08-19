@@ -1,24 +1,27 @@
-FROM mingc/android-build-box:1.28.0
+# 基础镜像
+FROM ubuntu:20.04
 
-ENV JAVA_HOME "/usr/lib/jvm/java-17-openjdk-amd64/"
+# 安装必要工具
+RUN apt-get update && apt-get install -y \
+    cmake \
+    ninja-build \
+    git \
+    python3 \
+    python3-pip \
+    wget \
+    unzip
 
-ENV GRADLE_VERSION 8.7
-ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
-RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip \
-    && unzip -d /opt -q gradle-${GRADLE_VERSION}-all.zip \
-    && pwd \
-    && ls -al \
-    && ls -al /opt \
-    && ls -al ${GRADLE_HOME}/ \
-    && ls -al ${GRADLE_HOME}/bin \
-    && chmod a+x ${GRADLE_HOME}/bin/gradle \
-    && rm gradle-${GRADLE_VERSION}-all.zip
-ENV PATH ${GRADLE_HOME}/bin:$PATH
+# 安装Unreal Engine 4依赖
+RUN pip3 install unreal-engine
 
-RUN npm i -g cordova@12.0.0 \
-    && cordova telemetry off \
-    && cordova create myApp org.apache.cordova.myApp myApp \
-    && cd myApp \
-    && cordova platform add git+https://github.com/apache/cordova-android.git#13.0.0 --save --verbose \
-    && cordova plugin add cordova-plugin-camera --save \
-    && cordova build android
+# 克隆Unreal Engine 4源码
+RUN git clone https://github.com/EpicGames/UnrealEngine.git /UnrealEngine
+
+# 设置工作目录
+WORKDIR /UnrealEngine
+
+# 编译Unreal Engine 4
+RUN ./Setup.sh && ./GenerateProjectFiles.sh && make
+
+# 清理缓存
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
