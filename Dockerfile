@@ -1,6 +1,7 @@
 # 基础镜像
 FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND=noninteractive
 # 安装必要工具
 RUN apt-get update && apt-get install -y \
     cmake \
