@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     unzip
 
 # 安装Unreal Engine 4依赖
-RUN pip3 install unreal-engine
+#RUN pip3 install unreal-engine
 
 # 克隆Unreal Engine 4源码
 RUN git clone https://github.com/EpicGames/UnrealEngine.git /UnrealEngine
