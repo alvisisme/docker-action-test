@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 #RUN pip3 install unreal-engine
 
 # 克隆Unreal Engine 4源码
-RUN git clone https://github.com/EpicGames/UnrealEngine.git /UnrealEngine
+# RUN git clone https://github.com/EpicGames/UnrealEngine.git /UnrealEngine
 
 # 设置工作目录
 WORKDIR /UnrealEngine
